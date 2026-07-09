@@ -12,7 +12,8 @@ const App = {
         steamId: null,
         epicId: null,
         games: [],
-        filter: 'all'
+        filter: 'all',
+        searchQuery: ''
     },
 
     async init() {
@@ -50,6 +51,12 @@ const App = {
                 this.updateUI();
             };
         });
+
+        const searchInput = document.getElementById('game-search');
+        searchInput.oninput = (e) => {
+            this.state.searchQuery = e.target.value.trim().toLowerCase();
+            this.updateUI();
+        };
 
         UI.updateFilterSlider(document.querySelector('.filter-btn.active'));
     },
@@ -106,8 +113,9 @@ const App = {
 
     updateUI() {
         const filteredGames = this.state.games.filter(game => {
-            if (this.state.filter === 'all') return true;
-            return game.store === this.state.filter;
+            const matchesStore = this.state.filter === 'all' || game.store === this.state.filter;
+            const matchesSearch = game.title.toLowerCase().includes(this.state.searchQuery);
+            return matchesStore && matchesSearch;
         });
 
         UI.renderGames(filteredGames);
