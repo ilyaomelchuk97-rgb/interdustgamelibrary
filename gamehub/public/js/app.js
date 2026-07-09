@@ -31,8 +31,13 @@ const App = {
         document.getElementById('connect-steam').onclick = () => {
             window.location.href = `${API_BASE_URL}/api/steam/login`;
         };
-        document.getElementById('connect-epic').onclick = () => {
-            window.location.href = `${API_BASE_URL}/api/epic/login`;
+
+        document.getElementById('connect-epic').onclick = async () => {
+            const epicId = 'b09153b132864c8b9bf9c73efe240d00';
+            this.state.epicId = epicId;
+            this.saveToStorage();
+            UI.setAuthStatus('epic', true, 'Connected');
+            await this.refreshGames();
         };
         
         const refreshBtn = document.getElementById('refresh-btn');
