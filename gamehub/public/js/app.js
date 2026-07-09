@@ -5,7 +5,7 @@ import { EpicAPI } from './epic.js';
 // Вставьте сюда URL вашего развернутого бэкенда после деплоя на Render
 const API_BASE_URL = window.location.hostname === 'localhost' 
     ? '' 
-    : 'https://your-backend-url.onrender.com'; 
+    : 'https://interdustgamelibrary.onrender.com'; 
 
 const App = {
     state: {
