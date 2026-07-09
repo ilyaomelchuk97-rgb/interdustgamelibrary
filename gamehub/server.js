@@ -28,7 +28,7 @@ passport.deserializeUser((obj, done) => done(null, obj));
 
 // Steam Strategy
 passport.use(new SteamStrategy({
-    returnURL: process.env.REDIRECT_URI || 'http://localhost:3000/api/steam/callback',
+    returnURL: `${process.env.REDIRECT_URI || 'http://localhost:3000'}/api/steam/callback`,
     apiKey: process.env.STEAM_API_KEY
 }, (identifier, profile, done) => {
     return done(null, profile);
@@ -86,7 +86,7 @@ app.get('/api/steam/games', async (req, res) => {
 // this implementation provides the structure and a simulated response for the demo,
 // while showing where the real API calls would go.
 app.get('/api/epic/login', (req, res) => {
-    const epicAuthUrl = `https://www.epicgames.com/id/login?clientId=${process.env.EPIC_CLIENT_ID}&redirectUri=${process.env.REDIRECT_URI}/epic`;
+    const epicAuthUrl = `https://www.epicgames.com/id/login?clientId=${process.env.EPIC_CLIENT_ID}&redirectUri=${process.env.REDIRECT_URI}/api/epic/callback`;
     res.redirect(epicAuthUrl);
 });
 
